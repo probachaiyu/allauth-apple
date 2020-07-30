@@ -15,6 +15,8 @@ class OAuth2Client(object):
                  access_token_url,
                  callback_url,
                  scope,
+                 key=None,
+                 cert=None,
                  scope_delimiter=' ',
                  headers=None,
                  basic_auth=False):
@@ -23,6 +25,8 @@ class OAuth2Client(object):
         self.access_token_url = access_token_url
         self.callback_url = callback_url
         self.consumer_key = consumer_key
+        self.key = key
+        self.cert = cert
         self.consumer_secret = consumer_secret
         self.scope = scope_delimiter.join(set(scope))
         self.state = None

@@ -3,6 +3,9 @@ from django.urls import reverse
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from allauth.socialaccount.providers.oauth2.views import OAuth2CallbackView
+from allauth.socialaccount.providers.untappd.client import UntappdOAuth2Client
+from allauth.socialaccount.providers.untappd.views import UntappdOAuth2Adapter
 
 
 class UntappdAccount(ProviderAccount):
@@ -18,6 +21,7 @@ class UntappdAccount(ProviderAccount):
 
 
 class UntappdProvider(OAuth2Provider):
+    client_cls = UntappdOAuth2Client
     id = 'untappd'
     name = 'Untappd'
     account_class = UntappdAccount
@@ -48,5 +52,5 @@ class UntappdProvider(OAuth2Provider):
         )]
         return ret
 
-
+oauth2_callback = OAuth2CallbackView.adapter_view(UntappdOAuth2Adapter)
 provider_classes = [UntappdProvider]

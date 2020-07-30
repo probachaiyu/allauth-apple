@@ -3,6 +3,7 @@
 
 Note worthy changes
 -------------------
+- New provider: Apple.
 
 - New providers: EDX, Yandex, Mixer.
 
