@@ -106,7 +106,7 @@ long_description = io.open('README.rst', encoding='utf-8').read()
 version = __import__('allauth').__version__
 
 METADATA = dict(
-    name='django-allauth',
+    name='django-allauth2',
     version=version,
     author='Raymond Penners',
     author_email='raymond.penners@intenct.nl',
