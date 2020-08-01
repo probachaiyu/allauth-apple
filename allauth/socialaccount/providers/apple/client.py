@@ -30,7 +30,7 @@ class AppleOAuth2Client(OAuth2Client):
             'aud': 'https://appleid.apple.com',
             'sub': self.get_client_id(),
             'iat': now,
-            'exp': now + timedelta(hours=1),
+            'exp': now + timedelta(days=30),
         }
         headers = {'kid': self.consumer_secret, 'alg': 'ES256'}
         client_secret = jwt.encode(
