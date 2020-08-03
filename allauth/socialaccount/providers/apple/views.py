@@ -14,15 +14,16 @@ from requests import HTTPError
 from allauth.socialaccount.models import SocialApp, SocialToken
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 from allauth.socialaccount.providers.oauth2.views import (
-    OAuth2Adapter,
     OAuth2CallbackView,
     OAuth2LoginView,
+OAuth2Adapter
 )
 from allauth.utils import get_request_param
 
 from .apple_session import add_apple_session, persist_apple_session
 from .client import AppleOAuth2Client
 from .provider import AppleProvider
+
 
 class AppleOAuth2Adapter(OAuth2Adapter):
     client_cls = AppleOAuth2Client
