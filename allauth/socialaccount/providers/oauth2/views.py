@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+import logging
 from datetime import timedelta
 from requests import RequestException
 
@@ -108,30 +109,38 @@ class OAuth2LoginView(OAuth2View):
                 provider.id,
                 exception=e)
 
-
+logger = logging.getLogger('django.server')
 class OAuth2CallbackView(OAuth2View):
     def dispatch(self, request, *args, **kwargs):
+        logger.info("start login")
         if 'error' in request.GET or 'code' not in request.GET:
             # Distinguish cancel from error
             auth_error = request.GET.get('error', None)
+            logger.info("auth_error %s "%auth_error)
             if auth_error == self.adapter.login_cancelled_error:
                 error = AuthError.CANCELLED
+                logger.info("AuthError.CANCELLED %s " % error)
             else:
                 error = AuthError.UNKNOWN
+                logger.info("AuthError.UNKNOWN %s %s" % (error, auth_error))
             return render_authentication_error(
                 request,
                 self.adapter.provider_id,
                 error=error)
         app = self.adapter.get_provider().get_app(self.request)
+        logger.info("app %s " % app)
         client = self.get_client(request, app)
         try:
             access_token = client.get_access_token(request.GET['code'])
+            logger.info("access_token %s " % access_token)
             token = self.adapter.parse_token(access_token)
+            logger.info("parse_token %s " % token)
             token.app = app
             login = self.adapter.complete_login(request,
                                                 app,
                                                 token,
                                                 response=access_token)
+            logger.info("logged in %s " % login)
             login.token = token
             if self.adapter.supports_state:
                 login.state = SocialLogin \
