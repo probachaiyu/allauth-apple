@@ -103,7 +103,7 @@ package_data = find_package_data(exclude_directories=excluded_directories)
 long_description = io.open('README.rst', encoding='utf-8').read()
 
 # Dynamically calculate the version based on allauth.VERSION.
-version = __import__('allauth').__version__
+version = 0.42
 
 METADATA = dict(
     name='django-allauth2',
